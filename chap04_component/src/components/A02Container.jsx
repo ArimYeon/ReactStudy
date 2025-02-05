@@ -4,6 +4,8 @@
 import React, { useState } from 'react'
 import A02Props from './A02Props'
 
+import A01State from './A01State'
+
 function A02Container() {
   // 상태변수 - useState는 함수 최초 실행시 1번만 등록돼서 A02Container.jsx가 리렌더링 돼도 상태변수값은 초기화 안됨
   const [age, setAge] = useState(30);
@@ -35,12 +37,24 @@ function A02Container() {
           부모의 함수 실행 => getter 수정 => 리 렌더링 => 자식 리 렌더링
        */}
       <A02Props className="btn btn-primary" type="date" age={10} check={true} arr={array}
-        user={{ name: 'A', age: 1 }} onAdd={onAdd} changeAge={setAge} addArray={addArray}></A02Props>
+        user={{ name: 'A', age: 1 }} onAdd={onAdd} changeAge={setAge} addArray={addArray}>
+        <>
+          <h5>부모가 전달한 View: {age}</h5>
+          <div>Hello World - 자식 컴포넌트의 props.children 위치에 표시된다</div>
+        </>
+      </A02Props>
 
       <A02Props className="btn btn-danger" type="time" age={age} check arr={array}
-        user={user} onAdd={onAdd} changeAge={setAge} addArray={addArray}></A02Props>
+        user={user} onAdd={onAdd} changeAge={setAge} addArray={addArray}>
+        <>
+          <img src="images/machu.jpg" alt="machu" />
+        </>
+      </A02Props>
 
-      <A02Props></A02Props>
+      <A02Props>
+        {/* 자신의 상태변수 등을 값으로 전달 가능 */}
+        <A01State type="time" />
+      </A02Props>
     </>
   )
 }
